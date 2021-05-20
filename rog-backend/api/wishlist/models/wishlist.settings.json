@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "wishlists",
+  "info": {
+    "name": "Wishlist"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "products": {
+      "collection": "product",
+      "via": "wishlists",
+      "dominant": true
+    },
+    "user": {
+      "via": "wishlist",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

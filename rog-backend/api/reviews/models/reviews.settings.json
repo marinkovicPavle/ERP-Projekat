@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reviews",
+  "info": {
+    "name": "Reviews",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Rating": {
+      "type": "enumeration",
+      "enum": [
+        "Bad",
+        "Ok",
+        "Good",
+        "Excelent"
+      ]
+    },
+    "Review": {
+      "type": "text"
+    },
+    "product": {
+      "model": "product",
+      "via": "reviews"
+    },
+    "user": {
+      "via": "reviews",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}
