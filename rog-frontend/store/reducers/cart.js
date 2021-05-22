@@ -53,6 +53,15 @@ const cartReducer = (state = initialState, action) => {
         cartItems: state.cartItems
       };
 
+    case 'REMOVE_ALL_PRODUCTS': 
+    
+      state.cartItems.splice(0, state.cartItems.length);
+
+      return {
+        ...state,
+        cartItems: state.cartItems
+      };
+
     case 'SET_COUNT': 
       
       // find index and add new count on product count

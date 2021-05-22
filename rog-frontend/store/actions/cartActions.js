@@ -16,6 +16,10 @@ export const removeProduct = ({ color, size, id }) => ({
   id
 })
 
+export const removeAllProducts = () => ({
+    type: 'REMOVE_ALL_PRODUCTS'
+  })
+
 export const setCount = ({ color, size, id, count }) => ({
   type: 'SET_COUNT',
   color,

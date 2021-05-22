@@ -23,18 +23,6 @@ const useOrders = (user, getToken) => {
                         }
                     });
                     const data = await orderRes.json();
-
-                    /*for (let order of data) {
-                        for (let [index, productId] of order.cart.products.entries()) {
-                            const product_res = await fetch(`${API_URL}/products/${productId}`);
-                            const fetchedProduct = await product_res.json();
-                            console.log("PRVO",productId);
-                            order.cart.products[index] = fetchedProduct.name;
-                            console.log("DRUGO",productId);
-                        }
-                    }*/
-
-
                     console.log("Data",data);
                     setOrders(data);
                 } catch(error){
@@ -46,8 +34,6 @@ const useOrders = (user, getToken) => {
 
         fetchOrders();
     }, [user]);
-
-
 
     return {orders, loading}
 }
@@ -68,7 +54,7 @@ function getProductById(id) {
 
 export default function Account () {
 
-    const { user, logoutUser, getToken} = useContext(AuthContext)
+    const { user, logoutUser, getToken} = useContext(AuthContext);
     
     const { orders, loading } = useOrders(user, getToken);
     console.log("Acc.orders",orders);

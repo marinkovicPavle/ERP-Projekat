@@ -223,6 +223,10 @@ h1,h2,h3,h4,h5 {
     &.btn--yellow {
       background-color: var(--color-orange);
     }
+    &.btn--disabled {
+        cursor: not-allowed;
+        background-color: #A0A6AB;
+    }
   }
 }
 

@@ -5,19 +5,61 @@ import ProductsFilter from '../components/products-filter';
 import ProductsContent from '../components/products-content';
 
 import { API_URL } from '../utils/urls';
+import { useEffect, useState } from 'react';
 
-const Products = ({categories, products}) => (
-  <Layout>
-    <Breadcrumb />
-    <section className="products-page">
-      <div className="container">
-        <ProductsFilter categories={categories} />
-        <ProductsContent products={products}/>
-      </div>
-    </section>
-    <Footer />
-  </Layout>
-)
+const Products = ({categories, products}) => {
+
+    const [productData, setProductData] = useState(null)
+    const [query, setQuery] = useState(null);
+
+    useEffect(()=>{
+        if(products) {
+            setProductData(products)
+        }
+    }, [products])
+
+    useEffect(()=>{
+        if(productData && query) {
+            filterCategory()
+        }
+    }, [query])
+
+    function choseType(type) {
+        if(type) {
+            if(type === query) {
+                setProductData(products)
+                setQuery(null)
+                return;
+            }
+            setQuery(type)
+
+        }
+    }
+
+    function filterCategory() {
+        const filteredData = []
+        products.map((product)=>{
+            if(product.category.Name === query) {
+                filteredData.push(product)
+            }
+        })
+
+        setProductData(filteredData)
+    }
+
+    return (
+        <Layout>
+          <Breadcrumb />
+          <section className="products-page">
+            <div className="container">
+              <ProductsFilter categories={categories} choseType={choseType} query={query} />
+              <ProductsContent products={productData} query={query}/>
+            </div>
+          </section>
+          <Footer />
+        </Layout>
+      )
+}
 
 export async function getStaticProps() {
     // Get external data from the file system, API, DB, etc.

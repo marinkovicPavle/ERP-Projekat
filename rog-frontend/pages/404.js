@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import LayoutError from '../layouts/404';
 
 const ErrorPage = () => (
@@ -6,7 +7,9 @@ const ErrorPage = () => (
       <div className="container">
         <h1>Error 404</h1>
         <p>Woops. Looks like this page doesn't exist</p>
-        <a href="#" className="btn btn--rounded btn--yellow">Go to home</a>
+        <Link href={'/'}>
+            <a href="#" className="btn btn--rounded btn--yellow">Go to home</a>
+        </Link>
       </div>
     </section>
   </LayoutError>

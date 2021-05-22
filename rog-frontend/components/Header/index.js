@@ -7,6 +7,21 @@ import { useRouter } from 'next/router';
 
 import AuthContext from '../../context/AuthContext'
 
+/*dropdown*/
+import Dropdown, {
+    DropdownToggle,
+    DropdownMenu,
+    DropdownMenuWrapper,
+    MenuItem,
+    DropdownButton
+} from '@trendmicro/react-dropdown';
+
+// Be sure to include styles at some point, probably during your bootstraping
+import '@trendmicro/react-buttons/dist/react-buttons.css';
+import '@trendmicro/react-dropdown/dist/react-dropdown.css';
+
+import { removeAllProducts } from '../../store/actions/cartActions';
+import { useDispatch } from 'react-redux';
 
 const Header = ({ isErrorPage }) => {
   const router = useRouter();
@@ -19,7 +34,9 @@ const Header = ({ isErrorPage }) => {
   const navRef = useRef(null);
   const searchRef = useRef(null);
 
-  const { user } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
+
+  const dispatch = useDispatch();
 
   const headerClass = () => {
     if(window.pageYOffset === 0) {
@@ -77,19 +94,44 @@ const Header = ({ isErrorPage }) => {
           </button>
           <Link href="/cart">
             <button className="btn-cart">
-              <i className="icon-cart"></i>
-              {cartItems.length > 0 && 
+              <i className="icon-cart"></i>	
+              {cartItems.length > 0 && user ?
                 <span className="btn-cart__count">{cartItems.length}</span>
-              }
+              : <span></span>}
             </button>
           </Link>
-          {user ? (
+          {user ? 
+          
+          <Dropdown>
+    <Dropdown.Toggle title={user.email} btnStyle="link"/>
+    <Dropdown.Menu>
+        <MenuItem onSelect={() => {
+                router.push('/account');
+            }}>
+            Profile
+        </MenuItem>
+        <MenuItem onSelect={() => {
+                router.push('/orders');
+            }}>
+            Orders
+        </MenuItem>
+        <MenuItem onSelect={() => {
+                logoutUser();
+                dispatch(removeAllProducts());
+                //router.push('/');
+            }}>
+            Logout
+        </MenuItem>
+    </Dropdown.Menu>
+</Dropdown>
+          /*(
+              
                     <Link href="/account">
                         <button className="site-header__btn-avatar">
                             <i className="icon-avatar"></i> {user.email}
                         </button>
                     </Link>
-                ) : (
+                )*/ : (
                     <Link href="/login">
                         <button className="site-header__btn-avatar">Login</button>
                     </Link>

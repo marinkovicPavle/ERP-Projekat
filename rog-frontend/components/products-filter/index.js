@@ -32,7 +32,7 @@ const handle = props => {
   );
 };
 
-const ProductsFilter = ({categories}) => {
+const ProductsFilter = ({categories, choseType, query}) => {
   const router = useRouter();
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -58,6 +58,8 @@ const ProductsFilter = ({categories}) => {
                 key={category.id} 
                 name="product-type" 
                 label={category.Name} 
+                onChange={()=>{choseType(category.Name)}}
+                query={query}
               />
             ))}
           </div>
@@ -66,34 +68,12 @@ const ProductsFilter = ({categories}) => {
         <div className="products-filter__block">
           <button type="button">Price</button>
           <div className="products-filter__block__content">
-            <Range min={0} max={20} defaultValue={[3, 10]} tipFormatter={value => `${value}%`} />
+            <Range min={0} max={1000} defaultValue={[0, 1000]} tipFormatter={value => `${value}$`} onChange={(e)=>{
+                console.log(e)
+            }} />
           </div>
         </div>
         
-        <div className="products-filter__block">
-          <button type="button">Size</button>
-          <div className="products-filter__block__content checkbox-square-wrapper">
-            {productsSizes.map(type => (
-              <Checkbox 
-                type="square" 
-                key={type.id} 
-                name="product-size" 
-                label={type.label} />
-            ))}
-          </div>
-        </div>
-        
-        <div className="products-filter__block">
-          <button type="button">Color</button>
-          <div className="products-filter__block__content">
-            <div className="checkbox-color-wrapper">
-              {productsColors.map(type => (
-                <CheckboxColor key={type.id} name="product-color" color={type.color} />
-              ))}
-            </div>
-          </div>
-        </div>
-
         <button type="submit" className="btn btn-submit btn--rounded btn--yellow">Apply</button>
       </div>
     </form>

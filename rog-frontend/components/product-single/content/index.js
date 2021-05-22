@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import productsColors from './../../../utils/data/products-colors';
 import productsSizes from './../../../utils/data/products-sizes';
 import CheckboxColor from './../../products-filter/form-builder/checkbox-color';
@@ -9,6 +9,7 @@ import { toggleFavProduct } from './../../../store/actions/userActions';
 
 import { fromImageToUrl } from '../../../utils/urls'
 
+import AuthContext from '../../../context/AuthContext'
 
 const Content = ({ product }) => {
   const dispatch = useDispatch();
@@ -21,6 +22,8 @@ const Content = ({ product }) => {
 
   const { favProducts } = useSelector(state => state.user);
   const isFavourite = some(favProducts, productId => productId === product.id);
+
+  const { user } = useContext(AuthContext);
 
   const toggleFav = () => {
     dispatch(toggleFavProduct(
@@ -100,8 +103,12 @@ const Content = ({ product }) => {
                 +
               </button>
             </div>
-            
-            <button type="submit" onClick={() => addToCart()} className="btn btn--rounded btn--yellow">Add to cart</button>
+
+            {user ? (
+                <button type="submit" onClick={() => addToCart()} className="btn btn--rounded btn--yellow">Add to cart</button>
+            ) : (
+                <button disabled title="Login to add to cart" type="submit" className="btn btn--rounded btn--disabled">Add to cart</button>
+            )}
             <button type="button" onClick={toggleFav} className={`btn-heart ${isFavourite ? 'btn-heart--active' : ''}`}><i className="icon-heart"></i></button>
           </div>
         </div>

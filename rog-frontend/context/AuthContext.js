@@ -6,10 +6,11 @@ import { MAGIC_PUBLIC_KEY } from '../utils/urls';
 import { postData } from '../utils/services'; 
 import { API_URL } from '../utils/urls'
 
-import { useSelector } from 'react-redux';
-
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { removeAllProducts } from '../store/actions/cartActions';
 
 const AuthContext = createContext();
 
@@ -19,6 +20,11 @@ export const AuthProvider = (props) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const dispatch = useDispatch();
+
+    const { cartItems } = useSelector(state => state.cart);
+
 
     //const router = useRouter();
 
@@ -38,6 +44,16 @@ export const AuthProvider = (props) => {
         console.log(loginProvider);
     };*/
 
+    const removeFromCart = () => {
+        console.log(cartItems);
+        console.log(cartItems);
+        /*dispatch(removeAllProducts(
+          { 
+            cartItems
+          }
+        ))*/
+      }
+
     const loginUser = async (email) => {
         try {
             await magic.auth.loginWithMagicLink({ email });
@@ -53,7 +69,7 @@ export const AuthProvider = (props) => {
         try {
             await magic.user.logout();
             setUser(null);
-            router.push('/');
+            Router.push('/');
         } catch (error) {
             console.log(error);
         }
@@ -89,6 +105,7 @@ export const AuthProvider = (props) => {
     }
 
     useEffect(() => {
+        console.log(cartItems);
         magic = new Magic(MAGIC_PUBLIC_KEY);
         checkUserLoggedIn();
     }, []);

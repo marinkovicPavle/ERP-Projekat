@@ -7,12 +7,11 @@ const ShoppingCart = () => {
   
   const priceTotal = useSelector(state => {
     const cartItems = state.cart.cartItems;
-    console.log(cartItems);
     let totalPrice = 0;
     if(cartItems.length > 0) {
       cartItems.map(item => totalPrice += item.price * item.count);
     }
-
+    
     return totalPrice;
   })
 
