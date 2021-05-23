@@ -26,6 +26,7 @@ import { useDispatch } from 'react-redux';
 const Header = ({ isErrorPage }) => {
   const router = useRouter();
   const { cartItems } = useSelector(state => state.cart);
+  console.log(cartItems)
   const arrayPaths = ['/'];  
 
   const [onTop, setOnTop] = useState(( !arrayPaths.includes(router.pathname) || isErrorPage ) ? false : true);

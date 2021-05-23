@@ -32,7 +32,7 @@ const handle = props => {
   );
 };
 
-const ProductsFilter = ({categories, choseType, query}) => {
+const ProductsFilter = ({categories, choseType, query, chosePrice}) => {
   const router = useRouter();
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -57,8 +57,8 @@ const ProductsFilter = ({categories, choseType, query}) => {
               <Checkbox 
                 key={category.id} 
                 name="product-type" 
-                label={category.Name} 
-                onChange={()=>{choseType(category.Name)}}
+                label={category.name} 
+                onChange={()=>{choseType(category.name)}}
                 query={query}
               />
             ))}
@@ -70,6 +70,8 @@ const ProductsFilter = ({categories, choseType, query}) => {
           <div className="products-filter__block__content">
             <Range min={0} max={1000} defaultValue={[0, 1000]} tipFormatter={value => `${value}$`} onChange={(e)=>{
                 console.log(e)
+                choseType("price")
+                chosePrice({min: e[0], max: e[1]})
             }} />
           </div>
         </div>

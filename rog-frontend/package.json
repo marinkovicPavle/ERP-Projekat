@@ -16,6 +16,7 @@
     "next"
   ],
   "dependencies": {
+    "@stripe/stripe-js": "^1.15.0",
     "@trendmicro/react-dropdown": "^1.4.0",
     "lodash": "^4.17.20",
     "magic-sdk": "^4.3.0",

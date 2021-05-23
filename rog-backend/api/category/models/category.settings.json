@@ -11,10 +11,10 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "Name": {
+    "name": {
       "type": "string"
     },
-    "Description": {
+    "description": {
       "type": "richtext"
     },
     "products": {
@@ -22,8 +22,7 @@
       "via": "category"
     },
     "slug": {
-      "type": "uid",
-      "targetField": "Name"
+      "type": "uid"
     },
     "meta_title": {
       "type": "string"

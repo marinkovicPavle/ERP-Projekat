@@ -11,7 +11,7 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "Rating": {
+    "rating": {
       "type": "enumeration",
       "enum": [
         "Bad",
@@ -20,7 +20,7 @@
         "Excelent"
       ]
     },
-    "Review": {
+    "review": {
       "type": "text"
     },
     "product": {
@@ -28,9 +28,9 @@
       "via": "reviews"
     },
     "user": {
-      "via": "reviews",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "reviews"
     }
   }
 }

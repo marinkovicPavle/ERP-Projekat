@@ -68,8 +68,8 @@
       "via": "user"
     },
     "reviews": {
-      "collection": "reviews",
-      "via": "user"
+      "via": "user",
+      "collection": "reviews"
     },
     "wishlist": {
       "model": "wishlist",

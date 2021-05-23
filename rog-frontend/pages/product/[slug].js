@@ -37,7 +37,7 @@ const Product = ({ product }) => {
           <div className="product-single__content">
             {/*<Gallery images={fromImageToUrl(product.image)} />*/}
             <div className="product-gallery__image">
-                <img src={fromImageToUrl(product.image)} alt="" />
+                <img style={{height: "600px", width: "800px", paddingRight: "50px"}} src={fromImageToUrl(product.image)} alt="" />
             </div>
             <Content product={product} />
           </div>

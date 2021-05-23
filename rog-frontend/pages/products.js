@@ -11,6 +11,7 @@ const Products = ({categories, products}) => {
 
     const [productData, setProductData] = useState(null)
     const [query, setQuery] = useState(null);
+    const [price, setPrice] = useState(null)
 
     useEffect(()=>{
         if(products) {
@@ -36,10 +37,27 @@ const Products = ({categories, products}) => {
         }
     }
 
+    function chosePrice(priceData) {
+        if(priceData) {
+            setPrice(priceData)
+        }
+    }
+
     function filterCategory() {
         const filteredData = []
+
+        if(query === "price") {
+            products.map((product)=>{
+                if(product.price <= price.max && product.price >= price.min) {
+                    filteredData.push(product)
+                }
+            })
+            setProductData(filteredData)
+            return
+        }
+
         products.map((product)=>{
-            if(product.category.Name === query) {
+            if(product.category.name === query) {
                 filteredData.push(product)
             }
         })
@@ -52,7 +70,7 @@ const Products = ({categories, products}) => {
           <Breadcrumb />
           <section className="products-page">
             <div className="container">
-              <ProductsFilter categories={categories} choseType={choseType} query={query} />
+              <ProductsFilter categories={categories} choseType={choseType} query={query} chosePrice={chosePrice}/>
               <ProductsContent products={productData} query={query}/>
             </div>
           </section>

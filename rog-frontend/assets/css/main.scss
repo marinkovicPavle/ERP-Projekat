@@ -1752,6 +1752,8 @@ h1,h2,h3,h4,h5 {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
+    width: 50%;
+    margin: auto;
     .reviews-list {
       width: 100%;
       margin-left: auto;
@@ -1968,6 +1970,7 @@ h1,h2,h3,h4,h5 {
 }
 
 .reviews-list {
+    margin-top: 30px;
   .review-item {
     margin-bottom: 35px;
     &:last-of-type {
