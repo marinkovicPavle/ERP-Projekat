@@ -75,6 +75,27 @@ export const AuthProvider = (props) => {
         }
     }
 
+    const getUserData = async (email) => {
+        const settings = {
+            method: 'POST',
+            body: JSON.stringify({identifier: 'pavle019@live.com'}),
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            }
+        }
+
+        const response = await fetch(`${API_URL}/auth/local`, settings);
+        try {
+            const userData = await response.json();
+            return userData;
+        } catch (err) {
+            console.log(err);
+            throw err;
+        }
+        
+    }
+
     const checkUserLoggedIn = async () => {
         try {
             const isLoggedIn = await magic.user.isLoggedIn();
@@ -83,6 +104,8 @@ export const AuthProvider = (props) => {
                 setLoading(true);
                 const { email } = await magic.user.getMetadata();
                 setUser({ email });
+                const user = await getUserData('pavle019@live.com');
+                console.log(user);
                 //Add this just for test
                 const token = await getToken();
                 setLoading(false);

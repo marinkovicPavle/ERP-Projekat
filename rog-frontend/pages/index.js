@@ -4,7 +4,10 @@ import ProductsFeatured from '../components/products-featured';
 import Footer from '../components/footer';
 import Subscribe from '../components/subscribe';
 
-const IndexPage = () => {
+import { API_URL } from '../utils/urls';
+
+const IndexPage = ({products}) => {
+    console.log('ProduktiMAIN '+products)
   return (
     <Layout>
       <PageIntro />
@@ -20,14 +23,14 @@ const IndexPage = () => {
           
           <article style={{backgroundImage: 'url(/images/featured-2.jpg)'}} className="featured-item featured-item-small-first">
             <div className="featured-item__content">
-              <h3>Basic t-shirts $29,99</h3>
+              <h3>Next gen consolas</h3>
               <a href="#" className="btn btn--rounded">More details</a>
             </div>
           </article>
           
           <article style={{backgroundImage: 'url(/images/featured-3.jpg)'}} className="featured-item featured-item-small">
             <div className="featured-item__content">
-              <h3>Sale this summer</h3>
+              <h3>On sale</h3>
               <a href="#" className="btn btn--rounded">VIEW ALL</a>
             </div>
           </article>
@@ -77,12 +80,23 @@ const IndexPage = () => {
         </div>
       </section>
 
-      <ProductsFeatured />
+      <ProductsFeatured products={products} />
       <Subscribe />
       <Footer />
     </Layout>
   )
 }
 
+export async function getStaticProps() {
+    // Get external data from the file system, API, DB, etc.
+    const products_res = await fetch(`${API_URL}/products`);
+    const products = await products_res.json();
+
+    return {
+        props: {
+            products: products
+        }
+    };
+}
 
 export default IndexPage

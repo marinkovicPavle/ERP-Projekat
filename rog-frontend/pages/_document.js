@@ -23,6 +23,7 @@ export default class CustomDocument extends Document {
     return (
       <html lang="en">
         <Head>
+        <title>ROG Shop</title>
 
           {/* We only want to add the scripts if in production */}
           {isProduction && (

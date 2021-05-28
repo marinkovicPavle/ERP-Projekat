@@ -3,6 +3,9 @@ import ProductItem from './../../product-item';
 // import Swiper core and required components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { fromImageToUrl } from '../../../utils/urls';
+
+
 let slidesPerView = 1.3;
 let centeredSlides = true;
 let spaceBetween = 30;
@@ -34,13 +37,14 @@ const ProductsCarousel = ({ products }) => {
         {products.map(item => (
           <SwiperSlide key={item.id}>
             <ProductItem 
-              discount={item.discount}
-              price={item.price}
-              currentPrice={item.currentPrice}
+              discount={item.discount} 
               key={item.id}
               id={item.id} 
-              productImage={item.images[0]} 
+              price={item.price}
+              currentPrice={item.price}
+              productImage={fromImageToUrl(item.image)} 
               name={item.name}
+              slug={item.slug}
             />
           </SwiperSlide>
         ))}

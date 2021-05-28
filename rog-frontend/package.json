@@ -28,6 +28,8 @@
     "react-empty-state": "^1.0.0",
     "react-hook-form": "^6.8.2",
     "react-loader-spinner": "^4.0.0",
+    "react-popup": "^0.10.0",
+    "react-popup-alert": "^2.0.0",
     "react-rater": "^5.1.1",
     "react-redux": "^7.2.1",
     "react-router-config": "^5.1.1",

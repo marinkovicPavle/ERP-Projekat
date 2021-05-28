@@ -74,15 +74,24 @@ const Header = ({ isErrorPage }) => {
     <header className={`site-header ${!onTop ? 'site-header--fixed' : ''}`}>
       <div className="container">
         <Link href="/">
-          <a><h1 className="site-logo"><Logo />E-Shop</h1></a>
+          <a><h1 className="site-logo"><Logo />ROG-Shop</h1></a>
         </Link>
         <nav ref={navRef} className={`site-nav ${menuOpen ? 'site-nav--open' : ''}`}>
           <Link href="/products">
             <a>Products</a>
           </Link>
+          {user && user.email == 'pavle019@live.com' && window.location.pathname == '/admin' ?
+          <>
+          <a href="#">Add product</a>
+          <a href="#">Add category</a>
+          </>
+          : 
+          <>
           <a href="#">Inspiration</a>
           <a href="#">Rooms</a>
           <button className="site-nav__btn"><p>Account</p></button>
+          </>
+          }
         </nav>
 
         <div className="site-header__actions">
@@ -103,7 +112,7 @@ const Header = ({ isErrorPage }) => {
           </Link>
           {user ? 
           
-          <Dropdown>
+          <Dropdown style={{marginLeft: "20px"}}>
     <Dropdown.Toggle title={user.email} btnStyle="link"/>
     <Dropdown.Menu>
         <MenuItem onSelect={() => {
@@ -116,6 +125,13 @@ const Header = ({ isErrorPage }) => {
             }}>
             Orders
         </MenuItem>
+        {user.email == 'pavle019@live.com' &&
+            <MenuItem onSelect={() => {
+                router.push('/admin');
+            }}>
+                Admin panel
+            </MenuItem>
+        }
         <MenuItem onSelect={() => {
                 logoutUser();
                 dispatch(removeAllProducts());

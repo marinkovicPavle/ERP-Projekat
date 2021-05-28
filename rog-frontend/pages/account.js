@@ -72,7 +72,7 @@ export default function Account () {
         <Layout>
         <div>
             <Head>
-                <title>Your Account</title>
+                <title>ROG Shop - Account</title>
                 <meta name="description" content="Your orders will be shown here" />
             </Head>
             <h2>Account Page</h2>
