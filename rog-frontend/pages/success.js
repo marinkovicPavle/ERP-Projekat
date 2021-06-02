@@ -58,14 +58,16 @@ export default function Success(){
 
     return (
         <Layout>
-            <div>
-                <h2>Hold on!</h2>
-                { loading && <p>We're confirming your purchase!</p>}
-                { !loading && order && (
-                    <p>Your order was processed successfully! <Link href="/account">View Orders</Link></p>
-                )}
+            <div className="form-block"  style={{
+            position: 'absolute', left: '50%', top: '50%',
+            transform: 'translate(-50%, -50%)'
+        }}>
+              <h2 className="form-block__title"><a href="">Success!</a></h2>
+              <p className="form-block__description">Your order was processed successfully!</p>
+              <Link href={'/orders'}>
+                <p className="form-block__description"><a href="">View your orders</a></p>
+              </Link>
             </div>
-            <Footer />
         </Layout>
     );
 }

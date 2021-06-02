@@ -117,7 +117,7 @@ const Orders = () => {
                                                         className="cart-item-before"
                                                         data-label="Size"
                                                     ></td>
-                                                    <td>
+                                                    {/*<td>
                                                         <div className="quantity-button">
                                                             {' '}
                                                             {(() => {
@@ -147,13 +147,13 @@ const Orders = () => {
                                                                 } else {
                                                                     return (
                                                                         <span>
-                                                                            Unknown
+                                                                            
                                                                         </span>
                                                                     );
                                                                 }
                                                             })()}
                                                         </div>
-                                                    </td>
+                                                        </td>*/}
                                                     <td>${product.price}</td>
                                                 </tr>
                                             ))}

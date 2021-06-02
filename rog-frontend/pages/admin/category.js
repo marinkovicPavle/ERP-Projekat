@@ -1,14 +1,14 @@
-import Layout from '../layouts/Main';
+import Layout from '../../layouts/Main';
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
-import { server } from '../utils/server'; 
-import { postData } from '../utils/services'; 
+import { server } from '../../utils/server'; 
+import { postData } from '../../utils/services'; 
 import { useRouter } from 'next/router';
 
 import { useContext, useState } from 'react';
-import { API_URL } from '../utils/urls'
+import { API_URL } from '../../utils/urls'
 
-import AuthContext from '../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 
 /*dropdown*/
 import Dropdown, {
@@ -19,15 +19,11 @@ import Dropdown, {
     DropdownButton
 } from '@trendmicro/react-dropdown';
 
-const AdminPage = ({categories, products}) => {
-
-  const [input, setInput] = useState("");
+const CategoriesPage = ({products}) => {
 
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
-  const [price, setPrice] = useState(0);
-  const [image, setImage] = useState("");
-  const [category, setCategory] = useState("");
+  const [product, setProduct] = useState("");
 
   const { register, errors } = useForm();
 
@@ -36,27 +32,39 @@ const AdminPage = ({categories, products}) => {
   const router = useRouter();
 
   const handleSubmit = async (e) => {
-    var product = {
+    var category = {
         name: name,
-        content: content,
-        price: price,
-        category: category.id
+        description: content,
+        products: [product.id]
     }
     e.preventDefault();
     const token = await getToken();
-    const res = await fetch(`${API_URL}/products/`, {
+    const res = await fetch(`${API_URL}/categories/`, {
             method: 'POST',
-            body: JSON.stringify(product),
+            body: JSON.stringify(category),
             headers: {
                 'Content-type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
     });
-    alert('Product added!');
+    alert('Category added!');
   };
 
-  if(user.email != 'pavle019@live.com') { 
+  if(!user || user.email != 'pavle019@live.com') { 
     router.push('/');
+    return (
+        <Layout>
+        <div className="form-block"  style={{
+        position: 'absolute', left: '50%', top: '50%',
+        transform: 'translate(-50%, -50%)'
+        }}>
+        <Link href={'/login'}>
+          <h2 className="form-block__title"><a href="">Log in</a></h2>
+        </Link>
+          <p className="form-block__description">You need to have admin rights to access this page!</p>
+        </div>
+    </Layout>
+    )
   }
 
   return (
@@ -70,9 +78,9 @@ const AdminPage = ({categories, products}) => {
           </div>
 
           <div className="form-block">
-            <h2 className="form-block__title">Add product</h2>
-            <p className="form-block__description">Fill the form belov to add new product to site. 
-            Please fill all fields. Added product can be found on products page after submiting form.</p>
+            <h2 className="form-block__title">Add category</h2>
+            <p className="form-block__description">Fill the form belov to add new category to site. 
+            Please fill all fields. Added category can be found on products page after submiting form.</p>
             
             <form className="form" onSubmit={handleSubmit}>
               <div className="form__input-row">
@@ -99,11 +107,11 @@ const AdminPage = ({categories, products}) => {
 
               <div className="form__input-row">
               <Dropdown style={{marginLeft: "20px", width: "90%", marginLeft: "5%"}}>
-    <Dropdown.Toggle style={{width: "100%"}} title={category.name ? category.name : "Select Category"} btnStyle="flat"/>
+    <Dropdown.Toggle style={{width: "100%"}} title={product.name ? product.name : "Select Product"} btnStyle="flat"/>
     <Dropdown.Menu>
-    {categories.map(item => (
+    {products.map(item => (
               <MenuItem eventKey={item} onSelect={(eventKey) => {
-                    setCategory(eventKey);
+                    setProduct(eventKey);
                }}>
                  {item.name} 
                 </MenuItem>
@@ -117,7 +125,7 @@ const AdminPage = ({categories, products}) => {
                   className="form__input" 
                   type="text"
                   onChange={(e) => setContent(e.target.value)}
-                  placeholder="Content" 
+                  placeholder="Description" 
                   name="password"
                   ref={register({ required: true })}
                 />
@@ -126,35 +134,7 @@ const AdminPage = ({categories, products}) => {
                 }
               </div>
 
-              <div className="form__input-row">
-                <input 
-                  className="form__input" 
-                  type="number" 
-                  onChange={(e) => setPrice(e.target.value)}
-                  placeholder="Price" 
-                  name="password"
-                  ref={register({ required: true })}
-                />
-                {errors.password && errors.password.type === 'required' && 
-                  <p className="message message--error">This field is required</p>
-                }
-              </div>
-
-              <div className="form__input-row">
-                <input 
-                  className="form__input" 
-                  type="text" 
-                  placeholder="Image" 
-                  onChange={(e) => setImage(e.target.value)}
-                  name="password"
-                  ref={register({ required: true })}
-                />
-                {errors.password && errors.password.type === 'required' && 
-                  <p className="message message--error">This field is required</p>
-                }
-              </div>
-
-              <button type="submit" className="btn btn--rounded btn--yellow btn-submit">Add product</button>
+              <button type="submit" className="btn btn--rounded btn--yellow btn-submit">Add category</button>
             </form>
           </div>
 
@@ -166,19 +146,15 @@ const AdminPage = ({categories, products}) => {
 
 export async function getStaticProps() {
     // Get external data from the file system, API, DB, etc.
-    const categories_res = await fetch(`${API_URL}/categories`);
     const products_res = await fetch(`${API_URL}/products`);
 
-    const categories = await categories_res.json();
     const products = await products_res.json();
 
     return {
         props: {
-            categories: categories,
             products: products
         }
     };
 }
 
-export default AdminPage
-  
+export default CategoriesPage

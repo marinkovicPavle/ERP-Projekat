@@ -80,15 +80,23 @@ const Header = ({ isErrorPage }) => {
           <Link href="/products">
             <a>Products</a>
           </Link>
-          {user && user.email == 'pavle019@live.com' && window.location.pathname == '/admin' ?
+          {user && user.email == 'pavle019@live.com' && window.location.pathname == '/admin' || window.location.pathname == '/admin/category' ?
           <>
-          <a href="#">Add product</a>
-          <a href="#">Add category</a>
+          <Link href="/admin">
+            <a href="#">Add product</a>
+          </Link>
+          <Link href="/admin/category">
+            <a href="#">Add category</a>
+          </Link>
           </>
           : 
           <>
-          <a href="#">Inspiration</a>
-          <a href="#">Rooms</a>
+          <Link href={'/about'}>
+            <a href="#">About</a>
+          </Link>
+          <Link href={'/faq'}>
+            <a href="#">FAQ</a>
+          </Link>
           <button className="site-nav__btn"><p>Account</p></button>
           </>
           }

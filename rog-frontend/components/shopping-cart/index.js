@@ -106,8 +106,12 @@ const ShoppingCart = () => {
 
           <div className="cart-actions__items-wrapper">
             <p className="cart-actions__total">Total cost <strong>${priceTotal.toFixed(2)}</strong></p>
-            <button className="btn btn--rounded btn--yellow" onClick={handleBuy}>Checkout</button>
-          </div>
+            { cartItems.length > 0 ?
+                <button className="btn btn--rounded btn--yellow" onClick={handleBuy}>Checkout</button>
+            :
+                <button disabled className="btn btn--rounded btn--disabled">Checkout</button>
+            }
+        </div>
         </div>
       </div>
     </section>
